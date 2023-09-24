@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>My Diary</title>
+    <link rel="stylesheet" href="style.css" />
+    <script defer src="index.js"></script>
+  </head>
+  <body>
+    <h1>My Diary</h1>
+    <hr />
+    <button id="icon-add">+</button>
+    <div id="search">
+      <select name="topic" id="search-topic">
+        <option value="">主題</option>
+        <option value="學業">學業</option>
+        <option value="人際">人際</option>
+        <option value="社團">社團</option>
+      </select>
+      <select name="mood" id="search-emotion">
+        <option value="">心情</option>
+        <option value="快樂">快樂</option>
+        <option value="生氣">生氣</option>
+        <option value="難過">難過</option>
+      </select>
+      <button id="search-add">篩選</button>
+    </div>
+    <div id="diary-container" style="display: none">
+      <input type="text" id="input-time" />
+      <select name="topic" id="input-topic">
+        <option value="">主題</option>
+        <option value="學業">學業</option>
+        <option value="人際">人際</option>
+        <option value="社團">社團</option>
+      </select>
+      <select name="mood" id="input-emotion">
+        <option value="">心情</option>
+        <option value="快樂">快樂</option>
+        <option value="生氣">生氣</option>
+        <option value="難過">難過</option>
+      </select>
+      <textarea id="input-content" placeholder="write something"></textarea>
+      <button id="input-add">確定</button>
+      <button id="input-cancle">取消</button>
+    </div>
+
+    <section id="diarys">
+      <p id="none" style="display: none">沒有符合的結果</p>
+    </section>
+  </body>
+
+  <template id="item-template">
+    <div id="" class="diary-item">
+      <div>
+        <div class="diary-time">2023/09/14 (四)</div>
+        <button class="diary-edit">編輯</button>
+        <div class="diary-topic">學業</div>
+        <div class="diary-emotion">生氣</div>
+        <div class="diary-content">好多要寫...</div>
+      </div>
+    </div>
+  </template>
+</html>

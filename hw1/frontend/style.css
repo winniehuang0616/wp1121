@@ -1,0 +1,218 @@
+:root {
+  --todo-intput-height: 1.5rem;
+  --todo-intput-font-size: 1rem;
+}
+
+body {
+  background-color: #f4f3e1;
+  max-width: 600px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+h1 {
+  text-align: center;
+  font-size: 3rem;
+}
+
+hr {
+  width: 1250px;
+  margin: 0 -55%;
+  border: 1px solid black;
+}
+
+#icon-add {
+  text-align: center;
+  background-color: rgb(255, 156, 156);
+  border: 1px solid black;
+  font-size: 2em;
+  width: 35px;
+  height: 35px;
+  padding-top: 0px;
+  transform: translate(1200%, -240%);
+  cursor: pointer;
+  border-radius: 0.5rem;
+}
+
+#search {
+  width: 34%;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  background-color: rgba(255, 255, 255, 0.8);
+  transform: translate(85%, -50%);
+}
+
+select#search-topic,
+select#search-emotion,
+button#search-add {
+  cursor: pointer;
+}
+
+#diary-container {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  gap: 1rem;
+  z-index: 1;
+}
+
+input#input-time,
+select#input-topic,
+select#input-emotion,
+textarea#input-content,
+button#input-add,
+button#input-cancle,
+select#search-topic,
+select#search-emotion,
+button#search-add {
+  height: var(--todo-intput-height);
+  font-size: var(--todo-intput-font-size);
+  border-radius: 0.5rem;
+  border: 1px solid black;
+  padding: 0 0.5rem;
+}
+
+input#input-time {
+  display: block;
+  margin-bottom: 1rem;
+}
+
+select#input-topic,
+select#input-emotion {
+  background-color: bisque;
+}
+
+p#input-time {
+  color: white;
+  border: none;
+  font-size: 1.3rem;
+  font-weight: bolder;
+}
+
+textarea#input-content {
+  width: 95%;
+  font-size: 1rem;
+  margin: 1rem 0;
+  height: 5rem;
+  resize: none;
+  padding: 0.5rem;
+}
+
+button#input-add,
+button#input-cancle {
+  background-color: rgb(255, 156, 156);
+  width: 15%;
+  height: 40px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button#input-cancle {
+  background-color: #e3dfdf;
+}
+
+#diarys {
+  margin: 0 -30%;
+  margin: 1px solid black;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.diary-item {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 0.5rem;
+  border-radius: 1rem;
+  font-size: 1rem;
+  width: 21%;
+}
+
+.diary-time {
+  font-weight: bold;
+  display: inline-block;
+}
+
+.diary-edit {
+  font-size: 0.9rem;
+  display: inline-block;
+  border: 1px solid black;
+  border-radius: 0.5rem;
+  background-color: #e3dfdf;
+  padding: 0 0.5rem;
+  margin: 0.3rem 0 0 2.5rem;
+  cursor: pointer;
+}
+
+.diary-topic,
+.diary-emotion {
+  width: 20%;
+  display: inline-block;
+  border-radius: 0.5rem;
+  border: 1px solid black;
+  background-color: bisque;
+  padding: 0 0.5rem;
+  margin: 0.5rem 0;
+}
+
+.diary-content {
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid black;
+  white-space: nowrap;
+  padding: 0.2rem 0.5rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.todo-item summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.todo-item summary > div {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.todo-time {
+  margin: 0;
+  cursor: pointer;
+  font-size: 1.5rem;
+}
+.todo-description {
+  margin: 0;
+  font-size: 1rem;
+  padding: 0 1rem;
+}
+.todo-description:before {
+  content: "";
+  display: block;
+  height: 1px;
+  width: 100%;
+  background-color: #ccc;
+  margin: 0.5rem 0;
+}
+.todo-item input[type="checkbox"] {
+  height: 1.25rem;
+  width: 1.25rem;
+  cursor: pointer;
+}
+.todo-item button {
+  font-size: 1rem;
+  border-radius: 999px;
+  padding: 0.5rem;
+  border: none;
+  cursor: pointer;
+  background-color: #f55;
+  color: #fff;
+}
+.todo-item button:hover {
+  background-color: #f77;
+}
+
+#none {
+  font-weight: bold;
+  margin-left: 43%;
+  margin-top: 2rem;
+}
