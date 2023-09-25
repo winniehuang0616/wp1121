@@ -1,22 +1,30 @@
 # hw1 生傳四黃韻文
 
-### 1. install packages
+### 1. create .env file in backend folder and enter your mongodb url
+
+```bash
+cd backend
+(add .env file)
+MONGO_URL = "your password"
+```
+
+### 2. install related packages and run eslint to check code style
 
 ```bash
 cd backend
 yarn
-```
-
-### 2. enter mongodb password in .env in backend folder
-
-```bash
-cd backend
-MONGO_URL = "your password"
+yarn lint
+cd ..
+cd frontend
+yarn
+yarn lint
 ```
 
 ### 3. run the server
 
 ```bash
+cd ..
+cd backend
 yarn start
 ```
 
@@ -53,12 +61,3 @@ open index.html
 - 輸入格式錯誤不會 alert()，會幫你自動調整成正確的格式 ><
 - 可以試試看 : 2023.9.32 、 2020.02.29、2023/09/23，當然，這些只是舉例，也可以輸入你喜歡的日子看看
 ```
-
-## Linting
-
-```bash
-cd frontend && yarn lint
-cd ..
-cd backend && yarn lint
-```
-
