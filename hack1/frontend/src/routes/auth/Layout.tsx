@@ -51,7 +51,13 @@ const AuthLayout = () => {
       /* Here, a toast is a small, non-blocking notification pop-up. */
       /* They can be created via the `toast` function provided by `useToast()` */
       /* Reference: https://ui.shadcn.com/docs/components/toast#usage */
-
+      if (password !== confirmPassword) {
+        toast({
+          description: "Passwords do not match",
+          variant: 'destructive',
+        });
+        return;
+      }
       /* End of TODO 1.5 */
       register(username, password);
     }
@@ -73,11 +79,11 @@ const AuthLayout = () => {
               <TabsTrigger
                 asChild
                 key={tab.title}
-                value=""
+                value={tab.path}
                 className="last-of-type:border-r-0"
                 data-testid={`tab-${tab.path}`}
               >
-                <NavLink to="" />
+                <NavLink to={tab.path}>{tab.title}</NavLink>
               </TabsTrigger>
               /* End of TODO 1.3 */
             ))}
@@ -90,8 +96,11 @@ const AuthLayout = () => {
             {/* The logo should be vscoddit.svg in the public folder. */}
             {/* The logo should have alt text "VSCoddit Logo". */}
             {/* The title should be "VSCoddit" */}
-            <img data-testid="header-logo" className="h-5 w-5 brightness-200" />
-            <span data-testid="header-title" />
+            <img data-testid="header-logo" 
+            src="/vscoddit.svg"
+            alt="VSCoddit Logo"
+            className="h-5 w-5 brightness-200" />
+            <span data-testid="header-title" >VSCoddit</span>
             {/* END of TODO 1.1 */}
           </CardTitle>
           <CardDescription>
@@ -113,8 +122,12 @@ const AuthLayout = () => {
                 id="username"
                 data-testid="input-username"
                 type="text"
+                placeholder="Enter Username"
                 name="username"
                 autoComplete="username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                required
               />
               {/* End of TODO 1.4 */}
             </div>
@@ -130,7 +143,11 @@ const AuthLayout = () => {
                 data-testid="input-password"
                 type="password"
                 name="password"
+                value={password}
+                placeholder="Enter Password"
                 autoComplete="current-password"
+                onChange={(e) => setPassword(e.target.value)}
+                required
               />
               {/* End of TODO 1.4 */}
             </div>
@@ -152,7 +169,11 @@ const AuthLayout = () => {
                 data-testid="input-confirm-password"
                 type="password"
                 name="confirm-password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                placeholder="Confirm Password"
                 autoComplete="new-password"
+                required={location.pathname === '/register'}
               />
               {/* End of TODO 1.5 */}
             </div>

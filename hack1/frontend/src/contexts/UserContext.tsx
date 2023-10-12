@@ -2,6 +2,7 @@ import {
   createContext,
   useContext,
   useState,
+  useEffect,
   type PropsWithChildren,
 } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -41,6 +42,13 @@ export const UserProvider = ({ children }: PropsWithChildren) => {
 
   /* Reminder: Don't import this useEffect hook if you are tired of being redirected to the login page. */
   /* Warning: But remember to add it back before submitting your work. */
+  useEffect(() => {
+    // 檢查用戶是否未經身份驗證，並且不在登錄或註冊頁面
+    if (!authenticated && !['/login', '/register'].includes(location.pathname)) {
+      // 使用 navigate 函數進行重定向到登錄頁面
+      navigate('/login');
+    }
+  }, [authenticated, location.pathname, navigate]);
   /* End of TODO 1.2 */
 
   const login = async (username: string, password: string) => {

@@ -32,7 +32,25 @@ export const createUser = asyncWrapper(
     /* TODO 1.5: Ensure User Registration Functions Properly (8%) */
     /* Create new user using `UserModel` */
     /* Return 201 with new user */
-    throw new Error('`createUser` Not Implemented');
+    try {
+      // 從請求中獲取用戶信息
+      const { username, password } = req.body;
+
+      // 檢查用戶是否已經存在
+      const existingUser = await UserModel.findOne({ username });
+      if (existingUser) {
+        return res.status(400);
+      }
+
+      // 創建新用戶
+      const newUser = await UserModel.create({ username, password });
+
+      // 返回新用戶的信息
+      res.status(201);
+    } catch (error) {
+      res.status(500);
+      throw new Error('`createUser` Not Implemented');
+    }
     /* End of TODO 1.5 */
   },
 );

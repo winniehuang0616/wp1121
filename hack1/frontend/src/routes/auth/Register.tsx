@@ -10,7 +10,7 @@ const Register = () => {
         {/* This link should link to the login page. */}
         {/* You can think of `Link`'s `to` prop as the anchor's `href` attribute. */}
         {/* This Link should have the text "Already have an account?" */}
-        <Link data-testid="link-login" to="" />
+        <Link data-testid="link-login" to="/login">Already have an account?</Link>
         {/* End of TODO 1.3 */}
       </Button>
       <Button size="sm">Register</Button>
