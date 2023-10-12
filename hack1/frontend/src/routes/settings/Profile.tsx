@@ -88,7 +88,23 @@ const Profile = (): React.ReactNode => {
           {/* You should use a `Textarea` component */}
           {/* It should have a placeholder of "Tell us a little bit about yourself" */}
           {/* It is not required */}
-          <p className="text-destructive">Replace me</p>
+          <FormField
+            control={form.control}
+            name="bio"
+            render={({ field }) => (
+            <FormItem>
+              <FormLabel>Bio</FormLabel>
+              <FormControl>
+              <Textarea
+                {...field}
+                  data-testid="textarea-bio"
+                  placeholder="Tell us a little bit about yourself"
+                />
+              </FormControl>
+              <FormMessage />
+              </FormItem>
+            )}
+          />
           {/* End of TODO 5.1 */}
           <FormField
             control={form.control}
@@ -134,13 +150,17 @@ const Profile = (): React.ReactNode => {
                   {/* Otherwise, if the user has a profile picture, render it (with `alt` attribute "Profile Picture") */}
                   {/* ↑ This will not be tested in TODO 4.3 ↑ */}
                   {/* Otherwise, render text "Upload a picture" */}
+                  {user.image ? (
                   <img
-                    src="Replace me"
-                    alt="Replace me"
+                    src={user.image}
+                    alt="Profile Picture"
                     data-testid="label-profile-picture"
                     className="h-full w-full rounded-md object-cover"
                   />
+                  ) : (
+                  // Otherwise, render text "Upload a picture"
                   <span data-testid="label-upload">Upload a picture</span>
+                  )}
                   {/* End of TODO 5.3 */}
                   {/* End of TODO 5.5 */}
                 </FormLabel>

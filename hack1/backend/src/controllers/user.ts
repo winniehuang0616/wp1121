@@ -36,19 +36,12 @@ export const createUser = asyncWrapper(
       // 從請求中獲取用戶信息
       const { username, password } = req.body;
 
-      // 檢查用戶是否已經存在
-      const existingUser = await UserModel.findOne({ username });
-      if (existingUser) {
-        return res.status(400);
-      }
-
       // 創建新用戶
       const newUser = await UserModel.create({ username, password });
 
       // 返回新用戶的信息
       res.status(201);
     } catch (error) {
-      res.status(500);
       throw new Error('`createUser` Not Implemented');
     }
     /* End of TODO 1.5 */
@@ -82,9 +75,24 @@ export const updateUser = asyncWrapper(
     /* TODO 4.4: Update User Information (6%) */
     /* Return 200 with updated user */
     /* Return 404 with "User not found" if update fails */
-    throw new Error('`updateUser` Not Implemented');
-    /* End of TODO 5.4 */
+    const userId = req.params.id;
+    const { username, bio, sex, image } = req.body;
+
+    // Assuming you have a MongoDB model for users, you can use it to update the user
+    const updatedUser = await UserModel.findByIdAndUpdate(
+      userId,
+      { username, bio, sex, image },
+      { new: true, runValidators: true },
+    );
+
+    if (!updatedUser) {
+      throw new Error('`updateUser` Not Implemented');
+    }
+
+    // Return the updated user
+    return res.status(200);
   },
+    /* End of TODO 5.4 */
 );
 
 /**
