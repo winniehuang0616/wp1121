@@ -20,13 +20,17 @@ import { useUser } from '@/contexts/UserContext';
 /* TODO 4.2: Render User Information - gender (8%) */
 /* Create props `gender` for the `GenderItem` component */
 /* What type should it be? (Hint: You can find it in this file) */
-const GenderItem = (/* Implement me */) => {
+type GenderItemProps = {
+  gender: NonNullable<User['sex']>;
+};
+
+const GenderItem = ({ gender }: GenderItemProps) => {
   return (
     <FormItem className="flex items-center space-x-3 space-y-0">
       <FormControl>
-        <RadioGroupItem value="Replace me" />
+        <RadioGroupItem value={gender} />
       </FormControl>
-      <FormLabel className="font-normal">Replace me</FormLabel>
+      <FormLabel className="font-normal">{gender}</FormLabel>
     </FormItem>
   );
 };
@@ -102,7 +106,9 @@ const Profile = (): React.ReactNode => {
                     {/* Use `genders` array to render the radio group items */}
                     {/* Use the `GenderItem` component to render each item */}
                     {/* Send the `gender` as a prop to the `GenderItem` component */}
-                    <p className="text-destructive">Replace me</p>
+                    {genders.map((gender) => (
+                      <GenderItem key={gender} gender={gender} />
+                    ))}
                     {/* End of TODO 5.2 */}
                   </RadioGroup>
                 </FormControl>

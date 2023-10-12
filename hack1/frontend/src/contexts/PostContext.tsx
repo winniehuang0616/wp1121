@@ -65,9 +65,37 @@ export const PostsProvider = ({ children }: PropsWithChildren) => {
 
   /* TODO 3.3: Edit User Posts With Editor (8%) */
   const updatePost = async (index: number, title: string, content: string) => {
-    if (posts === null) return;
+    if (posts === null || user === null) return;
     /* Hint 3.3.1: Use the correct API from `PostService` to update DB */
     /* Hint 3.3.2: Use React hook to update frontend */
+    const postId = posts[index]._id;
+    const payload: Post.Put.Payload = {
+      title,
+      content,
+      author: user._id, // 這裡是一個例子，請根據你的邏輯來獲取 author
+    };
+
+    try {
+    // 使用 PostService.update 更新帖子
+    await PostService.update(postId, payload);
+
+    // 使用 React hook 更新前端
+    setPosts((prevPosts) => {
+      if (prevPosts === null) return null;
+
+      const newPosts = [...prevPosts];
+      newPosts[index] = {
+        ...newPosts[index],
+        title,
+        content,
+        updatedAt: new Date(), // 更新更新時間
+      };
+
+      return newPosts;
+    });
+  } catch (error) {
+    console.error('Error updating post:', error);
+  }
   };
   /* END TODO 3.3 */
 
