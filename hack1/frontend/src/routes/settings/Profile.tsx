@@ -150,9 +150,9 @@ const Profile = (): React.ReactNode => {
                   {/* Otherwise, if the user has a profile picture, render it (with `alt` attribute "Profile Picture") */}
                   {/* ↑ This will not be tested in TODO 4.3 ↑ */}
                   {/* Otherwise, render text "Upload a picture" */}
-                  {user.image ? (
+                  {form.watch('image') ? (
                   <img
-                    src={user.image}
+                    src={form.watch('image')}
                     alt="Profile Picture"
                     data-testid="label-profile-picture"
                     className="h-full w-full rounded-md object-cover"
