@@ -23,71 +23,61 @@ export const usersTable = pgTable(
     // the user changes their email, you have to update all the foreign keys that
     // reference that email. If you use a serial primary key, you don't have to worry
     // about that.
-    id: serial("id").primaryKey(),
+    id: serial("id"),
     // It is a good idea to set a maximum length for varchars, so that you don't
     // waste space in the database. It is also a good idea to move as much constraints
     // to the database as possible, so that you don't have to worry about them in
     // your application code.
-    handle: varchar("handle", { length: 50 }).notNull().unique(),
-    displayName: varchar("display_name", { length: 50 }).notNull(),
+    handle: varchar("handle", { length: 50 }).notNull().primaryKey(),
+    // 因為 unique 過不了所以暴力設成 primary_key ..
+    userName: varchar("user_name", { length: 50 }).notNull(),
   },
   (table) => ({
-    // indexes are used to speed up queries. Good indexes can make your queries
-    // run orders of magnitude faster. learn more about indexes here:
-    // https://planetscale.com/learn/courses/mysql-for-developers/indexes/introduction-to-indexes
     handleIndex: index("handle_index").on(table.handle),
   }),
 );
 
-export const tweetsTable = pgTable(
-  "tweets",
+export const activitysTable = pgTable(
+  "activitys",
   {
     id: serial("id").primaryKey(),
-    content: varchar("content", { length: 280 }).notNull(),
-    userHandle: varchar("user_handle", { length: 50 })
-      .notNull()
-      // this is a foreign key constraint. It ensures that the user_handle
-      // column in this table references a valid user_handle in the users table.
-      // We can also specify what happens when the referenced row is deleted
-      // or updated. In this case, we want to delete the tweet if the user
-      // is deleted, so we use onDelete: "cascade". It is similar for onUpdate.
-      .references(() => usersTable.handle, {
-        onDelete: "cascade",
-        onUpdate: "cascade",
-      }),
-    replyToTweetId: integer("reply_to_tweet_id"),
+    activityName: varchar("activity_name", { length: 50 }).notNull().unique(),
+    startTime: timestamp("start_time").notNull(),
+    endTime: timestamp("end_time").notNull(),
     createdAt: timestamp("created_at").default(sql`now()`),
   },
   (table) => ({
-    userHandleIndex: index("user_handle_index").on(table.userHandle),
-    createdAtIndex: index("created_at_index").on(table.createdAt),
-    // we can even set composite indexes, which are indexes on multiple columns
-    // learn more about composite indexes here:
-    // https://planetscale.com/learn/courses/mysql-for-developers/indexes/composite-indexes
-    replyToAndTimeIndex: index("reply_to_time_index").on(
-      table.replyToTweetId,
-      table.createdAt,
-    ),
+    activityNameIndex: index("activity_name_index").on(table.activityName),
   }),
 );
 
-export const likesTable = pgTable(
-  "likes",
+export const commentTable = pgTable(
+  "comments",
   {
     id: serial("id").primaryKey(),
-    userHandle: varchar("user_handle", { length: 50 })
+    activityID: integer("activityID").notNull()
+      .references(() => activitysTable.id, { onDelete: "cascade" }),
+    handle: varchar("handle", { length: 50 }).notNull()
       .notNull()
       .references(() => usersTable.handle, { onDelete: "cascade" }),
-    tweetId: integer("tweet_id")
-      .notNull()
-      .references(() => tweetsTable.id, { onDelete: "cascade" }),
+    content: varchar("content"),
+    createdAt: timestamp("created_at").default(sql`now()`),
   },
   (table) => ({
-    tweetIdIndex: index("tweet_id_index").on(table.tweetId),
-    userHandleIndex: index("user_handle_index").on(table.userHandle),
-    // unique constraints ensure that there are no duplicate combinations of
-    // values in the table. In this case, we want to ensure that a user can't
-    // like the same tweet twice.
-    uniqCombination: unique().on(table.userHandle, table.tweetId),
+    activityIDIndex: index("activityID_index").on(table.activityID),
+  }),
+);
+
+export const joinsTable = pgTable(
+  "joins",
+  {
+    id: serial("id").primaryKey(),
+    handle: varchar("handle", { length: 50 }).notNull()
+      .references(() => usersTable.handle, { onDelete: "cascade" }),
+    activityID: integer("activityID").notNull()
+      .references(() => activitysTable.id, { onDelete: "cascade" }),
+  },
+  (table) => ({
+    activityIDIndex: index("activityID_index").on(table.activityID),
   }),
 );

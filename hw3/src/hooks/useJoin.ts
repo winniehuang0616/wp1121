@@ -6,21 +6,21 @@ export default function useLike() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  const likeTweet = async ({
-    tweetId,
-    userHandle,
+  const postJoin = async ({
+    handle,
+    activityID,
   }: {
-    tweetId: number;
-    userHandle: string;
+    handle: string;
+    activityID: number;
   }) => {
     if (loading) return;
     setLoading(true);
 
-    const res = await fetch("/api/likes", {
+    const res = await fetch("/api/joins", {
       method: "POST",
       body: JSON.stringify({
-        tweetId,
-        userHandle,
+        handle,
+        activityID,
       }),
     });
 
@@ -33,21 +33,21 @@ export default function useLike() {
     setLoading(false);
   };
 
-  const unlikeTweet = async ({
-    tweetId,
-    userHandle,
+  const deleteJoin = async ({
+    handle,
+    activityID,
   }: {
-    tweetId: number;
-    userHandle: string;
+    handle: string;
+    activityID: number;
   }) => {
     if (loading) return;
 
     setLoading(true);
-    const res = await fetch("/api/likes", {
+    const res = await fetch("/api/joins", {
       method: "DELETE",
       body: JSON.stringify({
-        tweetId,
-        userHandle,
+        handle,
+        activityID,
       }),
     });
 
@@ -61,8 +61,8 @@ export default function useLike() {
   };
 
   return {
-    likeTweet,
-    unlikeTweet,
+    postJoin,
+    deleteJoin,
     loading,
   };
 }

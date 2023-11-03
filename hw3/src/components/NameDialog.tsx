@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 
 import { usePathname, useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
+import useActivity from "@/hooks/useActivity";
 
 // all components is src/components/ui are lifted from shadcn/ui
 // this is a good set of components built on top of tailwindcss
@@ -21,116 +22,92 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { cn, validateHandle, validateUsername } from "@/lib/utils";
 
-export default function NameDialog() {
-  const [dialogOpen, setDialogOpen] = useState(false);
-  const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const usernameInputRef = useRef<HTMLInputElement>(null);
-  const handleInputRef = useRef<HTMLInputElement>(null);
-  const [usernameError, setUsernameError] = useState(false);
-  const [handleError, setHandleError] = useState(false);
+type NameDialogProps = {
+  activity: boolean;
+  setActivity: ()=>void;
+}
 
-  useEffect(() => {
-    const username = searchParams.get("username");
-    const handle = searchParams.get("handle");
-    // if any of the username or handle is not valid, open the dialog
-    setDialogOpen(!validateUsername(username) || !validateHandle(handle));
-  }, [searchParams]);
+export default function NameDialog({activity, setActivity}:NameDialogProps ) {
+  const activityInputRef = useRef<HTMLInputElement>(null);
+  const startInputRef = useRef<HTMLInputElement>(null);
+  const endInputRef = useRef<HTMLInputElement>(null);
+  const { postActivity } = useActivity();
 
-  const handleSave = () => {
-    const username = usernameInputRef.current?.value;
-    const handle = handleInputRef.current?.value;
-
-    const newUsernameError = !validateUsername(username);
-    setUsernameError(newUsernameError);
-    const newHandleError = !validateHandle(handle);
-    setHandleError(newHandleError);
-
-    if (newUsernameError || newHandleError) {
-      return false;
-    }
-
-    // when navigating to the same page with different query params, we need to
-    // preserve the pathname, so we need to manually construct the url
-    // we can use the URLSearchParams api to construct the query string
-    // We have to pass in the current query params so that we can preserve the
-    // other query params. We can't set new query params directly because the
-    // searchParams object returned by useSearchParams is read-only.
-    const params = new URLSearchParams(searchParams);
-    params.set("username", username!);
-    params.set("handle", handle!);
-    router.push(`${pathname}?${params.toString()}`);
-    setDialogOpen(false);
-
-    return true;
+  const isValidTimeFormat = (time: string) => {
+    const regex = /^\d{4}\/\d{1,2}\/\d{1,2} \d{1,2}:\d{1,2}:\d{1,2}$/;
+    return regex.test(time);
   };
 
-  // The Dialog component calls onOpenChange when the dialog wants to open or
-  // close itself. We can perform some checks here to prevent the dialog from
-  // closing if the input is invalid.
-  const handleOpenChange = (open: boolean) => {
-    if (open) {
-      setDialogOpen(true);
-    } else {
-      // if handleSave returns false, it means that the input is invalid, so we
-      // don't want to close the dialog
-      handleSave() && setDialogOpen(false);
+  const handleSave = async () => {
+    const activityName = activityInputRef.current?.value;
+    const startTime = startInputRef.current?.value;
+    const endTime = endInputRef.current?.value;
+    if (!activityName || !startTime || !endTime) {
+      alert("欄位不可為空");
+      return;
     }
+    if (!isValidTimeFormat(startTime) || !isValidTimeFormat(endTime)) {
+      alert("時間格式不正確");
+      return;
+    }
+    else (console.log(activityName, startTime, endTime))
+
+    try {
+      await postActivity({
+        activityName,
+        startTime,
+        endTime,
+      });
+    } catch (e) {
+      console.error(e);
+      alert("Error posting activity");
+    }
+
   };
 
   return (
-    <Dialog open={dialogOpen} onOpenChange={handleOpenChange}>
+    <Dialog open={activity}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Welcome to Twitter!</DialogTitle>
-          <DialogDescription>
-            Tell us your name to start tweeting.
-          </DialogDescription>
+          <DialogTitle>Add An Activity</DialogTitle>
         </DialogHeader>
         <div className="grid gap-4 py-4">
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="name" className="text-right">
-              Name
+              活動名稱
             </Label>
             <Input
-              placeholder="Web Programming"
-              defaultValue={searchParams.get("username") ?? ""}
-              className={cn(handleError && "border-red-500", "col-span-3")}
-              ref={usernameInputRef}
+              placeholder="活動名稱"
+              ref={activityInputRef}
             />
-            {usernameError && (
-              <p className="col-span-3 col-start-2 text-xs text-red-500">
-                Invalid username, use only{" "}
-                <span className="font-mono">[a-z0-9 ]</span>, must be between 1
-                and 50 characters long.
-              </p>
-            )}
+          
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="name" className="text-right">
-              Handle
+            <Label htmlFor="start-time" className="text-right">
+              開始時間
             </Label>
             <div className="col-span-3 flex items-center gap-2">
-              <span>@</span>
-              <Input
-                placeholder="web.prog"
-                defaultValue={searchParams.get("handle") ?? ""}
-                className={cn(handleError && "border-red-500")}
-                ref={handleInputRef}
-              />
+            <Input
+              placeholder="2023/10/22 15"
+              ref={startInputRef}
+            />
             </div>
-            {handleError && (
-              <p className="col-span-3 col-start-2 text-xs text-red-500">
-                Invalid handle, use only{" "}
-                <span className="font-mono">[a-z0-9\._-]</span>, must be between
-                1 and 25 characters long.
-              </p>
-            )}
+          </div>
+          <div className="grid grid-cols-4 items-center gap-4">
+            <Label htmlFor="end-time" className="text-right">
+              結束時間
+            </Label>
+            <div className="col-span-3 flex items-center gap-2">
+            <Input
+              placeholder="2023/10/22 17"
+              ref={endInputRef}
+            />
+            </div>
           </div>
         </div>
         <DialogFooter>
-          <Button onClick={handleSave}>start</Button>
+          <Button onClick={handleSave}>新增</Button>
+          <Button onClick={setActivity}>關閉</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

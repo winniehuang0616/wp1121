@@ -2,27 +2,27 @@ import { useState } from "react";
 
 import { useRouter } from "next/navigation";
 
-export default function useTweet() {
+export default function useComment() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  const postTweet = async ({
+  const postComment = async ({
+    activityID,
     handle,
     content,
-    replyToTweetId,
   }: {
+    activityID: number;
     handle: string;
     content: string;
-    replyToTweetId?: number;
   }) => {
     setLoading(true);
 
-    const res = await fetch("/api/tweets", {
+    const res = await fetch("/api/comments", {
       method: "POST",
       body: JSON.stringify({
+        activityID,
         handle,
         content,
-        replyToTweetId,
       }),
     });
 
@@ -39,7 +39,7 @@ export default function useTweet() {
   };
 
   return {
-    postTweet,
+    postComment,
     loading,
   };
 }
