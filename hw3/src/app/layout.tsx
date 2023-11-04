@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
 import { Noto_Sans } from "next/font/google";
 
-
-import { Separator } from "@/components/ui/separator";
-
 // import global styles for tailwind to work
 import "./globals.css";
 

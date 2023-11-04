@@ -1,5 +1,5 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { number, z } from "zod";
+import { z } from "zod";
 import { db } from "@/db";
 import { commentTable } from "@/db/schema";
 

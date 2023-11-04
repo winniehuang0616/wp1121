@@ -27,6 +27,7 @@ type UserDialogProps = {
 }
 
 export default function UserDialog({user, setUser}:UserDialogProps) {
+  const [open, setOpen] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -41,7 +42,7 @@ export default function UserDialog({user, setUser}:UserDialogProps) {
     const username = searchParams.get("username");
     const handle = searchParams.get("handle");
     // if any of the username or handle is not valid, open the dialog
-    setUser(!validateUsername(username) || !validateHandle(handle));
+    setOpen(!validateUsername(username) || !validateHandle(handle));
   }, [searchParams]);
 
   // handleSave modifies the query params to set the username and handle
@@ -79,19 +80,17 @@ export default function UserDialog({user, setUser}:UserDialogProps) {
 
     return true;
   };
-
-  // You might notice that the dialog doesn't close when you click outside of
-  // it. This is beacuse we perform some validation when the dialog closes.
-  // If you pass `setDialogOpen` directly to the Dialog component, it will
-  // behave like a normal dialog and close when you click outside of it.
-  //
-  // The Dialog component calls onOpenChange when the dialog wants to open or
-  // close itself. We can perform some checks here to prevent the dialog from
-  // closing if the input is invalid.
   
+  let opening: boolean;
+
+  if (user || open) {
+    opening = true;
+  } else {
+    opening = false;
+  }
 
   return (
-    <Dialog open={user}>
+    <Dialog open={opening}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Welcome to Join us!</DialogTitle>
@@ -142,7 +141,7 @@ export default function UserDialog({user, setUser}:UserDialogProps) {
         </div>
         <DialogFooter>
           <Button onClick={handleSave}>新增</Button>
-          <Button onClick={()=>{setUser(false)}}>關閉</Button>
+          <Button onClick={()=>{setUser(false);setOpen(false)}}>關閉</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

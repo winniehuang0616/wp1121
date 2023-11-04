@@ -18,8 +18,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { format } from "date-fns";
-import { setDefaultResultOrder } from "dns";
-
 
 type NameDialogProps = {
   handle: string | null;
@@ -51,12 +49,12 @@ export default function NameDialog({handle, activity, setActivity}:NameDialogPro
 
       const dateObj = dateTimeString.split(/[./\s]+/);
     
-      var limitInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-      var theYear = parseInt(dateObj[0]);
-      var theMonth = parseInt(dateObj[1]);
-      var theDay = parseInt(dateObj[2]);
-      var theHour = parseInt(dateObj[3]);
-      var isLeap = new Date(theYear, 1, 29).getDate() === 29;
+      const limitInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+      const theYear = parseInt(dateObj[0]);
+      const theMonth = parseInt(dateObj[1]);
+      const theDay = parseInt(dateObj[2]);
+      const theHour = parseInt(dateObj[3]);
+      const isLeap = new Date(theYear, 1, 29).getDate() === 29;
     
       if (isLeap) {
         limitInMonth[1] = 29;
@@ -74,10 +72,10 @@ export default function NameDialog({handle, activity, setActivity}:NameDialogPro
       ) {
         alert("無效日期，請修正");
       } else {
-        var year = theYear.toString();
-        var month = theMonth.toString().padStart(2, "0");
-        var day = theDay.toString().padStart(2, "0");
-        var hour = theHour.toString().padStart(2, "0");
+        const year = theYear.toString();
+        const month = theMonth.toString().padStart(2, "0");
+        const day = theDay.toString().padStart(2, "0");
+        const hour = theHour.toString().padStart(2, "0");
         return `${year}/${month}/${day} ${hour}:00:00`;
       }
     }
@@ -106,8 +104,8 @@ export default function NameDialog({handle, activity, setActivity}:NameDialogPro
     const dateFormat = "yyyy/MM/dd HH:mm:ss";
     const startTime = format(startDate, dateFormat);
     const endTime = format(endDate, dateFormat);
-    console.log(startTime, endTime);
     
+    console.log(handle)
     if (!handle) {
       alert("請先登入或註冊");
       return;

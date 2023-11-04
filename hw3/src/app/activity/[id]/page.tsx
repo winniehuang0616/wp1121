@@ -57,8 +57,6 @@ export default async function activity({
     .where(eq(joinsTable.activityID, activityID))
     .execute();
 
-    const numJoins = joins.length;
-
     // 只會有 null 或 有一個 id
     const [joined] = await db 
       .select({
@@ -84,15 +82,6 @@ export default async function activity({
     .leftJoin(usersTable, eq(commentTable.handle, usersTable.handle))
     .where(eq(commentTable.activityID, activityID))
     .execute();
-
-      const activity = {
-        id: activitys.id,
-        name: activitys.activityName,
-        startTime: new Date(activitys.startTime),
-        endTime: new Date(activitys.endTime),
-        joins: joins.length,
-        joined: Boolean(joined)
-      };
 
     return (
     <>

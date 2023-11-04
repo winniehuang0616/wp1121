@@ -1,10 +1,4 @@
 'use client'
-import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
-import { useState, useRef } from "react";
-import dayjs from "dayjs";
-import { Separator } from "@/components/ui/separator";
-
 
 type CommentsProps = {
   user: string | null;

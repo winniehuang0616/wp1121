@@ -1,7 +1,8 @@
 'use client'
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
-import { useState, useRef, ChangeEvent, KeyboardEvent } from "react";
+import { useState } from "react";
+import type { ChangeEvent, KeyboardEvent } from "react";
 import dayjs from "dayjs";
 import { Separator } from "@/components/ui/separator";
 import useComment from "@/hooks/useComment";

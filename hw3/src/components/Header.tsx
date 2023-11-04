@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef,useState, useEffect } from "react";
+import { useRef,useState } from "react";
 import { Separator } from "@/components/ui/separator";
 import { usePathname, useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
