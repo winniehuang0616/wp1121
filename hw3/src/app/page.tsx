@@ -1,4 +1,4 @@
-import { eq, desc, sql } from "drizzle-orm";
+import { eq, desc, sql, like } from "drizzle-orm";
 import Activity from "@/components/Activity";
 import Header from "@/components/Header";
 import { db } from "@/db";
@@ -8,11 +8,12 @@ type HomePageProps = {
   searchParams: {
     username?: string;
     handle?: string;
+    search?: string | null;
   };
 };
 
 export default async function Home({
-  searchParams: { username, handle },
+  searchParams: { username, handle, search },
 }: HomePageProps) {  
 
   const joinsSubquery = db.$with("joins_count").as(
@@ -58,6 +59,13 @@ export default async function Home({
     .orderBy(desc(activitysTable.createdAt))
     .leftJoin(joinsSubquery, eq(activitysTable.id, joinsSubquery.activityId))
     .leftJoin(joinedSubquery, eq(activitysTable.id, joinedSubquery.activityId))
+    .where(
+    search
+      ? (
+          like(activitysTable.activityName, `%${search}%`)
+        )
+      : undefined
+    )
     .execute();
 
   if (username && handle) {
@@ -83,9 +91,7 @@ export default async function Home({
 
   return (
     <>
-      <div className="flex h-screen w-full flex-col pt-2">
-      <div className="w-full px-4 pt-3">
-      </div>
+      <div className="flex w-full flex-col pt-2">
         <Header/>
         {activitys.map((activity) => (
           <Activity

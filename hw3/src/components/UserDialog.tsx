@@ -27,7 +27,6 @@ type UserDialogProps = {
 }
 
 export default function UserDialog({user, setUser}:UserDialogProps) {
-  const [dialogOpen, setDialogOpen] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -42,7 +41,7 @@ export default function UserDialog({user, setUser}:UserDialogProps) {
     const username = searchParams.get("username");
     const handle = searchParams.get("handle");
     // if any of the username or handle is not valid, open the dialog
-    setDialogOpen(!validateUsername(username) || !validateHandle(handle) || user===true);
+    setUser(!validateUsername(username) || !validateHandle(handle));
   }, [searchParams]);
 
   // handleSave modifies the query params to set the username and handle
@@ -77,7 +76,6 @@ export default function UserDialog({user, setUser}:UserDialogProps) {
     params.set("username", username!);
     params.set("handle", handle!);
     router.push(`${pathname}?${params.toString()}`);
-    setDialogOpen(false);
 
     return true;
   };
@@ -96,9 +94,9 @@ export default function UserDialog({user, setUser}:UserDialogProps) {
     <Dialog open={user}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Welcome to Twitter!</DialogTitle>
+          <DialogTitle>Welcome to Join us!</DialogTitle>
           <DialogDescription>
-            Tell us your name to start tweeting.
+            Please sign in or register before starting.
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">

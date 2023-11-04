@@ -31,11 +31,17 @@ export default function useActivity() {
       throw new Error(body.error);
     }
 
+    const data = await res.json();
+    const id = data.id;
+
     // router.refresh() is a Next.js function that refreshes the page without
     // reloading the page. This is useful for when we want to update the UI
     // from server components.
     router.refresh();
     setLoading(false);
+
+    return id;
+
   };
 
   return {

@@ -41,14 +41,20 @@ export async function POST(request: NextRequest) {
   const { activityName, startTime, endTime } = data as addActivityRequest;
   console.log(activityName, startTime, endTime);
   try {
-    await db
+    const result = await db
       .insert(activitysTable)
       .values({
         activityName,
         startTime: new Date(startTime), // 轉換成 Date 物件
         endTime: new Date(endTime),     // 轉換成 Date 物件
       })
+      .returning({ id: activitysTable.id })
       .execute();
+    const id = result[0]?.id; // Assuming the result is an array with the first element containing the inserted ID
+    return new NextResponse(
+      JSON.stringify({ id: id }),
+      { status: 200, headers: { "Content-Type": "application/json" } }
+    );
   } catch (error) {
     console.error("Error inserting data into the database:", error);
     return NextResponse.json(
@@ -56,6 +62,4 @@ export async function POST(request: NextRequest) {
       { status: 500 },
     );
   }
-
-  return new NextResponse("OK", { status: 200 });
 }

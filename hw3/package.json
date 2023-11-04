@@ -21,6 +21,7 @@
     "autoprefixer": "10.4.15",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
+    "date-fns": "^2.30.0",
     "dayjs": "^1.11.10",
     "drizzle-orm": "^0.28.6",
     "eslint": "8.49.0",
@@ -48,5 +49,4 @@
     "prettier": "^3.0.3",
     "prettier-plugin-tailwindcss": "^0.5.4"
   }
-  
 }

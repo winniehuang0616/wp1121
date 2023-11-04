@@ -38,7 +38,7 @@ export default function RootLayout({
     <html lang="en">
       {/* this applies the font to the whole page */}
       <body className={noto.className}>
-        <div className="mx-52 my-10 border-4 border-black rounded-xl">
+        <div className="mx-52 my-10 border-4 border-black rounded-xl min-h-fit">
           <main className="min-h-screen w-full">
             {children}
           </main>
