@@ -31,7 +31,6 @@ export async function POST(request: NextRequest) {
 
   // 把 activityID 轉成整數
   const activityID = parseInt(data.activityID, 10); // assuming base 10
-  console.log(activityID)
   if (isNaN(activityID)) {
     return NextResponse.json({ error: "Invalid activityID" }, { status: 400 });
   }

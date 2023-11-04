@@ -36,7 +36,6 @@ export default function ActivityHeader({
   const [comment, setComment] = useState("");
   const { postComment } = useComment();
   const { postJoin, deleteJoin } = useJoin();
-  console.log(join,user);
 
   const handleKeyDown = (event: KeyboardEvent<HTMLTextAreaElement>) => {
     // Check if the Enter key is pressed
@@ -70,7 +69,11 @@ export default function ActivityHeader({
   }
 
   const handleClick = async() => {
-    if (!handle) return;
+
+    if (handle==" ") {
+      alert("請先登入或註冊");
+      return;
+    }
     if (join) {
       await deleteJoin({
         handle,
@@ -92,9 +95,16 @@ export default function ActivityHeader({
         <div className="flex">
           <div className="w-4/5 mr-5 bg-slate-300 rounded-xl p-4">
             <div className="flex mb-3">
+              
+              {user==" "?(
+              <Link href={{ pathname: "/" }}>
+                <ArrowLeft size={18} />
+              </Link>):(
               <Link href={{ pathname: "/", query: { username:user, handle } }}>
                 <ArrowLeft size={18} />
               </Link>
+              )}
+
               <div className="mr-auto font-bold">{name}</div>
               <div className="font-bold">{joins}人參加</div>
             </div>

@@ -39,7 +39,6 @@ export async function POST(request: NextRequest) {
   // the `data` variable is now guaranteed to be of type PostTweetRequest
   // but the compiler doesn't know that, so we have to cast it with `as`
   const { activityName, startTime, endTime } = data as addActivityRequest;
-  console.log(activityName, startTime, endTime);
   try {
     const result = await db
       .insert(activitysTable)

@@ -35,16 +35,27 @@ export default async function Home({
     db
       .select({
         activityId: joinsTable.activityID,
-        // this is a way to make a boolean column (kind of) in SQL
-        // so when this column is joined with the tweets table, we will
-        // get a constant 1 if the user liked the tweet, and null otherwise
-        // we can then use the mapWith(Boolean) function to convert the
-        // constant 1 to true, and null to false
         joined: sql<number>`1`.mapWith(Boolean).as("joined"),
       })
       .from(joinsTable)
       .where(eq(joinsTable.handle, handle ?? "")),
   );
+
+  if (username && handle) {
+  await db
+    .insert(usersTable)
+    .values({
+      userName: username,
+      handle,
+    })
+    .onConflictDoUpdate({
+      target: usersTable.handle,
+      set: {
+        userName: username,
+      },
+    })
+    .execute();
+  }
 
   const activitys = await db
     .with(joinsSubquery, joinedSubquery)
@@ -67,27 +78,6 @@ export default async function Home({
       : undefined
     )
     .execute();
-
-  if (username && handle) {
-  await db
-    .insert(usersTable)
-    .values({
-      userName: username,
-      handle,
-    })
-    // Since handle is a unique column, we need to handle the case
-    // where the user already exists. We can do this with onConflictDoUpdate
-    // If the user already exists, we just update the display name
-    // This way we don't have to worry about checking if the user exists
-    // before inserting them.
-    .onConflictDoUpdate({
-      target: usersTable.handle,
-      set: {
-        userName: username,
-      },
-    })
-    .execute();
-  }
 
   return (
     <>

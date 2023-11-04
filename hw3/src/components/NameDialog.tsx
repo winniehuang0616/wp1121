@@ -105,7 +105,6 @@ export default function NameDialog({handle, activity, setActivity}:NameDialogPro
     const startTime = format(startDate, dateFormat);
     const endTime = format(endDate, dateFormat);
     
-    console.log(handle)
     if (!handle) {
       alert("請先登入或註冊");
       return;

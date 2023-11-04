@@ -19,7 +19,6 @@ export default function Activity({
   user,
   handle
 }: ActivityProps) {
-  console.log(joins, joined);
   return (
     <>
       <Link
