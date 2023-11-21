@@ -62,10 +62,10 @@ function Chat({
 
   const handelBroadcast = () => {
     if (broadcast) {
-      updateBullen({chatroom, content})
+      updateBullen({userId, chatroom, content})
     }
     else {
-      postBullen({chatroom, content})
+      postBullen({userId, chatroom, content})
     }
   }
 
