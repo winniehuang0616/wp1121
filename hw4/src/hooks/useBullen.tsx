@@ -106,11 +106,12 @@ export default function useBullen() {
     try {
       const channel = pusherClient.subscribe(channelName);
       channel.bind("chat:alter", (userId:string) => {
-        console.log('msg rcvd');
+        console.log('msg rcvd update bullen');
         if (userId === userID) {
           return;
         }
         router.refresh();
+        console.log('msg rcvd update bullen');
       });
     } catch (error) {
       console.error(error);

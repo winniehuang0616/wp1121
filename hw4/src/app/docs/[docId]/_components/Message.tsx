@@ -41,7 +41,7 @@ function Message({userId, chatroom}: MessageProps) {
   return (
   <>
   
-    <div className="flex mx-6 gap-2 bg-gray-300 p-1 rounded-2xl">
+    <div className="fixed bottom-4 mx-6 gap-2 bg-gray-300 p-1 rounded-2xl flex w-1/2">
       <Button
         variant={"ghost"}
         type={"submit"}

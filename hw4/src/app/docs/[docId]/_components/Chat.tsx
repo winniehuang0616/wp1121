@@ -83,10 +83,10 @@ function Chat({
             <div
               key={id}
               id={id.toString()}
-              className="relative w-full gap-3 my-10 cursor-pointer"
+              className="relative w-full gap-3 my-4 -mx-6 cursor-pointer"
             >
                   {click && (
-                    <div className="absolute right-20 -top-6 bg-black bg-opacity-75 rounded-x2 text-sm">
+                    <div className="absolute right-14 -top-6 bg-black bg-opacity-75 rounded-x2 text-sm">
                       <button 
                         className="border border-white hover:bg-opacity-50 text-white py-1 px-2 rounded"
                         onClick={() => handleDelete(id, userId)}
@@ -108,15 +108,15 @@ function Chat({
                       </button>
                     </div>
                   )}
-                  <div className="flex w-full gap-3" onClick={handleClick}>
-                    <div className="absolute text-sm bg-gray-200 rounded-2xl max-w-[50%] p-2 px-4 break-all right-20">
+                  <div className="flex w-full gap-3 my-6 justify-end mr-6" onClick={handleClick}>
+                    <div className="text-sm bg-gray-200 rounded-2xl max-w-[50%] p-2 px-4 break-al">
                       {content}
                     </div>
-                    <RxAvatar className="absolute text-4xl text-gray-400 font-semibold right-8" />
+                    <RxAvatar className="text-4xl text-gray-400 font-semibold" />
                   </div>
                 </div>
               ) : (
-                <div key={id} id={id.toString()} className="flex w-full gap-3 ml-8 my-10">
+                <div key={id} id={id.toString()} className="flex w-full gap-3 ml-8 my-6">
                   <RxAvatar className="text-4xl text-sky-400 font-semibold" />
                   <div className="text-sm bg-sky-400 rounded-2xl max-w-[50%] p-2 px-4 break-all">
                     {content}

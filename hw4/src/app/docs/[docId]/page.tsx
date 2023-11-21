@@ -74,7 +74,7 @@ async function DocPage ({
   
   return (
   <>
-    <div className="overflow-x-hidden h-screen mb-6 relative">
+    <div className="overflow-x-hidden h-screen mb-6 relative w-full">
       <div className="flex items-center gap-2 ml-6 mt-6">
         <RxAvatar className="text-4xl font-semibold text-sky-400"/>
         <h1 className="text-2xl font-bold">{Chater}</h1>
@@ -108,7 +108,7 @@ async function DocPage ({
         ))}
       </div>
       
-      <div className="flex absolute inset-x-0 bottom-0 mx-6 gap-2 bg-gray-300 p-1 rounded-2xl">
+      <div className="grow w-full">
         <Message 
         userId={userId}
         chatroom={docId}
