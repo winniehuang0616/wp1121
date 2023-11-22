@@ -61,7 +61,7 @@ export default function useMessage() {
     const channelName = `private-${chatroom}`;
     try {
       const channel = pusherClient.subscribe(channelName);
-      channel.bind("chat:update", ({ senderId, message }: PusherPayload) => {
+      channel.bind("chat:update", ({ senderId }: PusherPayload) => {
         console.log('msg rcvd');
         if (senderId === userID) {
           return;

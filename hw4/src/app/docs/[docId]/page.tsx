@@ -4,7 +4,7 @@ import { publicEnv } from "@/lib/env/public";
 import { RxAvatar } from "react-icons/rx";
 import { Button } from "@/components/ui/button";
 import { HiOutlineSpeakerphone } from "react-icons/hi";
-import { eq, asc, isNull } from "drizzle-orm";
+import { eq, asc } from "drizzle-orm";
 import { db } from "@/db";
 import { chatTable, chatroomTable, usersTable, broadcastTable } from "@/db/schema";
 

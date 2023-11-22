@@ -4,7 +4,6 @@ import { union } from 'drizzle-orm/pg-core';
 
 import { db } from "@/db";
 import { chatroomTable, usersTable, chatTable } from "@/db/schema";
-import Chat from "../[docId]/_components/Chat";
 
 export const createChatroom = async (userId1: string, userId2: string) => {
   console.log("[createChatroom]");

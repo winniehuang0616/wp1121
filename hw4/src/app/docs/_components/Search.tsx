@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { usePathname, useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
 
-
 function Search() {
     const searchInputRef = useRef<HTMLInputElement>(null);
     const router = useRouter();
@@ -13,7 +12,7 @@ function Search() {
     const searchParams = useSearchParams();
 
     const handleSearch = () => {
-        const search = searchInputRef.current?.value;
+        const search = searchInputRef.current?.value ?? ''; // Use an empty string as the default value
         const params = new URLSearchParams(searchParams);
         params.set("search", search!);
         router.push(`${pathname}?${params.toString()}`);

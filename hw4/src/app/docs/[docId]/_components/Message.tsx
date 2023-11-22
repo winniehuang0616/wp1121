@@ -1,7 +1,4 @@
 "use client"
-import { redirect } from "next/navigation";
-import { auth } from "@/lib/auth";
-import { publicEnv } from "@/lib/env/public";
 import { Button } from "@/components/ui/button";
 import { AiOutlineSend } from "react-icons/ai";
 import type { KeyboardEvent } from "react";

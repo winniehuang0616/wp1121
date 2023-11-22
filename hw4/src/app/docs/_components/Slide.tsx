@@ -1,10 +1,7 @@
-import { AiFillDelete, AiFillFileAdd, AiFillFileText } from "react-icons/ai";
 import { RxAvatar } from "react-icons/rx";
 import { LuMessagesSquare } from "react-icons/lu";
 import { IoExitOutline } from "react-icons/io5";
 
-
-import { revalidatePath } from "next/cache";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
@@ -18,7 +15,6 @@ async function Slide() {
   if (!session || !session?.user?.id) {
     redirect(publicEnv.NEXT_PUBLIC_BASE_URL);
   }
-  const userId = session.user.id;
  
   return (
     <nav className="flex-col h-screen w-full relative">

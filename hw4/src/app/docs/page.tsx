@@ -4,16 +4,8 @@ import { publicEnv } from "@/lib/env/public";
 import { RxAvatar } from "react-icons/rx";
 import { Button } from "@/components/ui/button";
 import { AiOutlineSend } from "react-icons/ai";
-import Middle from "./_components/Middle";
 
-type Props = {
-  searchParams: {
-    search?: string | null | undefined;
-  };
-};
-
-async function DocsPage({ searchParams:search }: Props) {
-  console.log(search)
+async function DocsPage() {
   const session = await auth();
   if (!session || !session?.user?.id) {
     redirect(publicEnv.NEXT_PUBLIC_BASE_URL);
@@ -43,4 +35,5 @@ async function DocsPage({ searchParams:search }: Props) {
     </>
   );
 }
+
 export default DocsPage;

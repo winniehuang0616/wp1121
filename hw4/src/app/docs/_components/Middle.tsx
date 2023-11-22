@@ -3,7 +3,6 @@ import { MdPersonAddAlt1, MdDelete } from "react-icons/md";
 import { redirect} from "next/navigation";
 import { revalidatePath } from "next/cache";
 import React from 'react';
-import { useSearchParams, useRouter} from 'next/navigation';
 import { Button } from "@/components/ui/button";
 import { auth } from "@/lib/auth";
 import { publicEnv } from "@/lib/env/public";
@@ -18,13 +17,13 @@ async function Middle()
     redirect(publicEnv.NEXT_PUBLIC_BASE_URL);
   }
 
-  let search = ""
+  const search = "";
   const userId = session.user.id;
   const chatrooms = await getChatroom(userId, search);
- 
-  const create = async (userId1:string, userId2:string) => {
+
+  async (userId1:string, userId2:string) => {
     "use server";
-    const newChatroomId = await createChatroom(userId1, userId2);
+    await createChatroom(userId1, userId2);
     revalidatePath("/docs");
   };
 

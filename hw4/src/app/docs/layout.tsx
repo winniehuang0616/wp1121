@@ -6,7 +6,7 @@ type Props = {
 };
 
 function DocsLayout({ children }: Props) {
-
+  
   return (
     <main className="flex-rows fixed  flex h-screen min-h-screen w-full">
       <nav className="flex w-1/4 flex-col min-h-screen border-r">
