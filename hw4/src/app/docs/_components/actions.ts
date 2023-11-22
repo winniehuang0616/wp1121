@@ -1,5 +1,5 @@
 "use server"
-import { eq, like, and, ne, sql } from "drizzle-orm";
+import { eq, like, and, ne, sql, desc } from "drizzle-orm";
 import { union } from 'drizzle-orm/pg-core';
 
 import { db } from "@/db";
@@ -58,13 +58,13 @@ export const getChatroom = async (userId: string, search:string|null|undefined) 
   .select({
     chatroom: chatSubquery.chatroom,
     content: chatTable.content,
+    createdAT: chatTable.createdAt
   })
   .from(chatTable)
   .innerJoin(chatSubquery, and(
     eq(chatTable.chatroom,chatSubquery.chatroom),
     eq(chatTable.createdAt, chatSubquery.latestCreatedAt)
   )));
-
 
   const Chatroom = await db
     .with(chatroomSubquery, lastchatSubquery)
@@ -73,7 +73,8 @@ export const getChatroom = async (userId: string, search:string|null|undefined) 
       userId: usersTable.displayId,
       displayID: usersTable.displayId,
       chatroom: chatroomSubquery.displayID,
-      content: lastchatSubquery.content
+      content: lastchatSubquery.content,
+      createdAT: lastchatSubquery.createdAT
     })
     .from(usersTable)
     .leftJoin(chatroomSubquery, eq(usersTable.displayId, chatroomSubquery.userId))
@@ -87,6 +88,7 @@ export const getChatroom = async (userId: string, search:string|null|undefined) 
           ne(usersTable.displayId, userId), // Exclude the row where displayId matches userId
         )
       )
+    .orderBy(desc(lastchatSubquery.createdAT))
     .execute();   
   return Chatroom;
 };
