@@ -33,7 +33,7 @@ export default function CreateProjectForm() {
       const newProject = await createProject(projectName, projectDescription);
       // TODO: 5. After creating a project, redirect to the project page
       // hint: Why are some variables unused?
-      redirect(`${publicEnv.NEXT_PUBLIC_BASE_URL}/projects/${newProject}`);
+      router.push(`/projects/${newProject.id}`);
       // TODO: 5. end
     } catch (error) {
       if (error instanceof Error) {
