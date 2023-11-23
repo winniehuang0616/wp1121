@@ -13,14 +13,18 @@
 4. Create `.env.local` file in the project root and add the following content:
 
    ```text
+   POSTGRES_URL=
+
    PUSHER_ID=
    NEXT_PUBLIC_PUSHER_KEY=
    PUSHER_SECRET=
    NEXT_PUBLIC_PUSHER_CLUSTER=
 
-   AUTH_SECRET=<this can be any random string>
+   AUTH_SECRET=
    AUTH_GITHUB_ID=
    AUTH_GITHUB_SECRET=
+
+   NEXT_PUBLIC_BASE_URL=http://localhost:3000
    ```
 
 5. Start the database
