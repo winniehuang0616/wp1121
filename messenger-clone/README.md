@@ -41,6 +41,8 @@
    ```
 8. Open http://localhost:3000 in your browser
 
+9. deploy link : https://messenger-six-mu.vercel.app/
+
 # 其他事項
 
 登入
@@ -56,4 +58,10 @@
 聊天
 - 要測試 pusher 建議使用兩種 browser 開起 ( 例如 chrome 和 IE )，不然會因為 cookie 導致使用者被重新 render
 - api 打得非常無敵慢我真的很抱歉，但他真的會動
+
+deploy
+- 如果要註冊新帳號測試 pusher 可以創兩個就好~因為我 chatroom 忘記做 scrow 了
+- 要測試 pusher 建議用不同瀏覽器開比較不會有問題
+- 也可以直接登入既有帳號 : winnie-00000000、mary-11111111、bryan-01050105
+- 點擊 chatroom 後 ( 要點頭像或名字喔 ) 才會跳出對話畫面，之後才可發送訊息公告收回等等，
 
