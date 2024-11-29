@@ -1,14 +1,14 @@
 ## NTUEE - web programming homework, test, final-project repo
 
 - ##### hw1-myDiary
-  - frontend : javascript | backend : nodejs | db : mogodb
+  - frontend : JavaScript | backend : Node.js | db : mongodb
 - ##### hw2-spotify-clone
-  - frontend : reactjs,typescript,tailwindcss | backend : nodejs | db : mongodb
+  - frontend : React.js,TypeScript,TailwindCSS | backend : Node.js | db : mongodb
 - ##### hw3-activityJoin
-  - frontend : nextjs,typescript,tailwindcss | backend : nextjs | db : postgreSQL
+  - frontend : Next.js,TypeScript,TailwindCSS | backend : Next.js | db : postgreSQL
 - ##### hw4-messenger-clone
-  - frontend : nextjs,typescript,tailwindcss,materialUI | backend : nextjs | db : postgreSQL | api : Auth,pusher(socket)
+  - frontend : Next.js,TypeScript,TailwindCSS,Material UI | backend : Next.js | db : postgreSQL | api : NextAuth.js,Pusher(socket)
 - ##### final-project-Souly
-  - frontend : nextjs,typescript,tailwindcss,materialUI,ShadcnUI | backend : nextjs | db : postgreSQL | api : Auth,imgur
+  - frontend : Next.js,TypeScript,TailwindCSS,Material UI,shadcn/ui | backend : Next.js | db : postgreSQL | api : NextAuth.js,Imgur
   - reference : https://github.com/joschan21/canvas-drawing-app (painting function)
   - https://wp1121-final-sooty.vercel.app
